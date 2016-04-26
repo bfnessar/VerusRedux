@@ -1,0 +1,53 @@
+Generic Commands
+login
+
+
+Admin Commands:
+impersonateUser('user')
+escalateSecurityRole()
+escalateRole('role')
+canEscalateRole()
+canImpersonate()
+toggleTabbedView()
+
+Application Navigator Commands:
+applicationVisible('application_name');
+moduleVisible('application_name','module_name');
+selectModule('application_name','module_name');
+goToNewRecordForm('table');
+goToListView('table')
+
+Field Commands:
+setFieldValue('field_name','value');
+fieldVisible('field_name');
+fieldMandatory('field_name');
+fieldReadOnly('field_name');
+validateDropDownOptions('field_name',['options','that','should','be','present']);
+
+List View Commands:
+canEditFromList()
+resetToDefaultColumns()
+listUIActionVisible('action_name')
+listContextActionVisible('action_name')
+listChoiceActionVisible('action_name')
+listBannerActionVisible('action_name')//May be unnecessary
+listBottomActionVisible('action_name')//May be unnecessary
+listLinkActionVisible('action_name')//May be unnecessary
+
+selectListUIAction('action_name');
+selectListContextAction('action_name');
+selectListChoiceActionVisible('action_name');
+selectListBannerAction('action_name'); //May be unnecessary
+selectListBottomAction('action_name'); //May be unnecessary
+selectListLinkAction('action_name'); //May be unnecessary
+
+Form View Commands:
+UI Action Commands:
+formUIActionVisible('action_name');
+formContextActionVisible('action_name');
+selectUIAction('action_name');
+
+relatedLinkVisible('action_name');
+relatedListVisible('list_name');
+rlNewVisible('related_list');
+rlEditVisible('related_list');

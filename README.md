@@ -1,2 +1,1 @@
-# VerusRedux
-New iteration of MechaVerus
+# MechaVerus

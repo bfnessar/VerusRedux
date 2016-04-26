@@ -1,0 +1,46 @@
+INCIDENT TYPES:
+	* Open (aka Active)
+		https://dev20728.service-now.com/nav_to.do?url=incident.do?sys_id=46e3e949a9fe19810069b824ba2c761a
+			* Called by Bow Ruggeri (an ITIL user), assigned to generic ITIL User
+		* Accessible to any Admin
+		* I THINK it's accessible to anyone with ITIL role (e.g. Beth Anglin can access this incident)
+		* Only accessible to the End User who opened the incident
+			* If an unauthorized user tries to access the incident, the screen will say "Record not found".
+
+		https://dev20728.service-now.com/nav_to.do?uri=incident.do?sys_id=47064b68a9fe19810186793eefffc9b7%26sysparm_view=ess
+			* Called by Joe Employee; assigned to David Loo
+
+
+	* Open Unassigned (aka Active)
+		* Because ITIL users all have access to all incidents, this case should be no different from regular Open.
+
+	* Resolved
+		https://dev20728.service-now.com/nav_to.do?uri=incident.do?sys_id=d7158da0c0a8016700eef46c8d1f3661
+			* Called by Joe Employee, assigned to Don Goodliffe
+			* INC0000051
+		* Can be commented on by ITIL users
+
+	* Closed
+		* Closed incidents cannot be commented on
+
+
+USER ROLES:
+	* End User
+		* Can only view incidents that they opened themselves
+
+	* ITIL User
+		* Can view and comment on any incident I think
+
+	* Admin
+		* Same freedoms as ITIL user. Also, if I am impersonating a user and I leave a comment, the comment is attributed to that user.
+
+THUS: Test cases should be as follows:
+	* As ITIL:
+		* Comment on any Open incident
+		* "" 			Resolved incident
+		* (don't bother with Closed incidents because they cannot be commented on)
+	* As End User:
+		* Comment on an Open incident (that he/she owns)
+		* ""			Resolved		""
+		* Same as above for Closed incidents
+

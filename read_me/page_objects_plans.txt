@@ -1,0 +1,37 @@
+List of Page Objects and their functions (planned):
+	* SN_Homepage(instance_url);
+		* .login_as(username, password)
+		* .is_logged_in()
+		* .impersonate_user(username)
+		* .current_impersonation()
+		* .navigate_through_filter(target)
+
+	* SN_NewIncident(role):
+	* SN_ExistingIncident(url, role, incident_state):
+
+=============================================================
+LEGEND:
+	&: Passed in via the constructor
+	.: Inherited
+	>: Getter
+	*: No special consideration
+	!: Causes a state change
+
+
+
+SNInterface(instance_url, driver) (TOP LEVEL):
+	ATTRIBUTES:
+		& instance_url
+		& driver
+		* logged_in
+	METHODS:
+		* open();
+		* halt();
+		* waitFor(element, timeout);
+		> checkUserName();
+		! loginAs(username, password);
+		! impersonateUser(mark);
+		! navToNewRecordForm(form_type);
+		! navToExistingRecordForm(url);
+
+

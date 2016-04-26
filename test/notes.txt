@@ -1,0 +1,66 @@
+Because of how the require() statements are called, the test spec directory (./tests/) must reside in the same directory as that of the page objects (./page_objects/). I want to find a way to anchor path references (the require statements) to a specific directory, but I can't think of how to do that. Consequently, I can only refer to directories that are 'siblings' to whatever directory I am calling the require() function from (by using the directory name '../page_objects/...js'), for example.
+
+[25 Apr 2016] I made a bunch of convoluted checks for determining the element id of a "Reference" field, most of which don't work. I think I have a simpler one now, and I'm going to get rid of the clutter of the old ones. Still, in case this newer, simpler one doesn't work, I'm keeping the older versions here:
+			/** QUESTIONS: Is the id ever prefixed with "sys_readonly"? It seems like
+				that is not the case, but I don't think we should assume so.
+
+				if (cond1) AND (cond1a || cond1b): base_name, RO
+				if (cond1) AND NOT (cond1a || cond1b): base_name, not-RO
+				if (cond2) AND (cond2a || cond2b): prefixed_name, RO
+				if (cond2) AND NOT (cond2a || cond2b): prefixed_name, not-RO
+				Where:
+					(cond1)	 = id exists without sys_display
+					(cond1a) = cond1 + class="form-control disabled"
+					(cond1b) = cond1 + readonly=(true|"readonly")
+					(cond2)	 = id exists with sys_display
+					(cond2a) = cond2 + class="form-control disabled"
+					(cond2b) = cond2 + readonly=(true|"readonly")
+			*/
+			var cond1 = browser.isExisting(base_name);
+			var cond1a = (browser.getAttribute(base_name, "class") == "form-control disabled");
+			var cond1b = String(browser.getAttribute(base_name, "readonly")).match(/^(true|readonly)$/);
+			var cond2 = browser.isExisting(prefixed_name);
+			var cond2a = (browser.getAttribute(prefixed_name, "class") == "form-control disabled");
+			var cond2b = String(browser.getAttribute(base_name, "readonly")).match(/^(true|readonly)$/);
+
+			/* ATTEMPT 1: Works, but I think it should be more comprehensive */
+			// if (cond1 && (cond1a || cond1b)) { // NO sys_display, YES readonly
+			// 	return 	{	fieldID: base_name,
+			// 				isRO: true,
+			// 			};
+			// }
+			// else if ( browser.isExisting(name_with_prefix) ){	// YES sys_display
+
+			// 	if ()
+
+			// 	return 	{ 	fieldID: name_with_prefix,
+			// 				isRO: false,
+			// 			};
+			// }
+			// else {
+			// 	; // Should throw an error here
+			// };
+			// break;
+
+			/* ATTEMPT 2: More comprehensive, but is not accurate */
+			// if (cond1) { // base_name confirmed
+			// 	console.log("============== CONFIRMED NO PREFIX");
+			// 	if (cond1a || cond1b) {	// read-only confirmed
+			// 		return {fieldID: base_name, isRO: true,	};
+			// 	}
+			// 	else {	// read-only negated
+			// 		return {fieldID: base_name, isRO: false, };
+			// 	};
+			// }
+			// else if (cond2) { // prefixed_name confirmed
+			// 	console.log("============== CONFIRMED YES PREFIX");
+			// 	if (cond2a || cond2b) { // read-only confirmed
+			// 		return {fieldID: prefixed_name, isRO: true, };
+			// 	}
+			// 	else {
+			// 		return {fieldID: prefixed_name, isRO: false, };
+			// 	};
+			// }
+			// else {
+			// 	; // neither name worked, something is terribly wrong
+			// }
