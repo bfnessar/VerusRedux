@@ -1,4 +1,6 @@
 # Sensitive information
 test/persistent_values.js
+# Files that take up too much space
 errorShots/*.png
-
+node_modules/*
+selenium-server-standalone-2.53.0.jar
