@@ -5,6 +5,9 @@ var storage = require('../persistent_values.js');
 var instance_url = storage.instance_url;
 var username = storage.login_creds.username;
 var password = storage.login_creds.password;
+var open_incident_url = storage.stock_incidents.calledByITIL_open;
+var closed_incident_url = storage.stock_incidents.calledByITIL_closed;
+
 
 describe('Verifies the presence of fields on a new Incident form for an end user', function() {
 	this.timeout(0);
@@ -15,17 +18,17 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 	});
 
 	it('impersonates an end user', function(done){
-		SNWindow.impersonate('Joe Employee');
+		SNWindow.impersonate('ITIL User');
 	});
 
-	it('navigates to a new record form (incident.do), then verifies that the UI Actions are present', function(done){
-		SNWindow.navToNewRecordForm('incident');
+	it('navigates to an existing, open record form, then verifies that the UI actions are present', function(done){
+		SNWindow.navToExistingRecordForm(open_incident_url);
 		UIActions.setFormType('incident');
 		var verify = [
-			['#sysverb_insert', 'form button'],
-			['submit', 'button'],
-			['#submit', 'form:button'],
-
+			['#sysverb_update', 'form button'],
+			['#connectFollow', 'button'],
+			['connectFollow', 'BUTTON'],
+			
 			['#resolve_incident', 'form:button'],
 			['resolve_incident', 'formButton'],
 		];

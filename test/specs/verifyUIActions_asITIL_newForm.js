@@ -15,10 +15,10 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 	});
 
 	it('impersonates an end user', function(done){
-		SNWindow.impersonate('Joe Employee');
+		SNWindow.impersonate('ITIL User');
 	});
 
-	it('navigates to a new record form (incident.do), then verifies that the UI Actions are present', function(done){
+	it('navigates to a new record form (incident.do), then verifies the existence of its fields', function(done){
 		SNWindow.navToNewRecordForm('incident');
 		UIActions.setFormType('incident');
 		var verify = [

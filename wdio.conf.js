@@ -21,8 +21,10 @@ exports.config = {
         // './test/specs/verifyReadOnly_asEndUser_newForm.js',
         // './test/specs/verifyReadOnly_asITIL_newForm.js',
         /** UIActions-related test */
-        './test/specs/verifyUIActions_asEndUser_newForm.js',
-        
+        // './test/specs/verifyUIActions_asEndUser_newForm.js',
+        // './test/specs/verifyUIActions_asITIL_newForm.js',
+        './test/specs/verifyUIActions_asITIL_existingForm.js',
+
     ],
     // Patterns to exclude.
     exclude: [
