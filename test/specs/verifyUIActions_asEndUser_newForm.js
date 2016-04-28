@@ -1,5 +1,5 @@
 var SNWindow = require('../page_objects/SNInterface.page.js');
-var Fields = require('../page_objects/Fields.page.js');
+var UIActions = require('../page_objects/UIActions.page.js');
 var storage = require('../persistent_values.js');
 
 var instance_url = storage.instance_url;
@@ -20,14 +20,17 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 
 	it('navigates to a new record form (incident.do), then verifies the existence of its fields', function(done){
 		SNWindow.navToNewRecordForm('incident');
-		Fields.setFormType('incident');
+		UIActions.setFormType('incident');
 		var verify = [
-			'caller_id', 'closed_at', 'comments',
-			'impact', 'number', 'opened_at',
-			'short_description', 'state',
+			['#sysverb_insert', 'form button'],
+			['submit', 'button'],
+			['#submit', 'form:button'],
+			['#resolve_incident', 'form:button'],
+			['resolve_incident', 'formButton'],
 		];
-		verify.forEach(function(field){
-			expect(Fields.exists(field)).to.be.true;
+		verify.forEach(function(target) {
+			expect(UIActions.exists(target[0], target[1])).to.be.true;
 		});
+
 	});
 });

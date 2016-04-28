@@ -223,6 +223,8 @@ Fields.prototype.setValue = function(value, field_name) {
 	};
 };
 
+/* isMandatory how, exactly? Relative to another field? Probably
+	will have to reckon for this when we actually build out the function */
 Fields.prototype.isMandatory = function(field_name) {
 	;
 };

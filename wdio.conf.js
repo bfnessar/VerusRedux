@@ -10,15 +10,19 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
+        /** Fields-related tests  */
         // './test/specs/access_fields_as_enduser.js',
         // './test/specs/access_fields_as_ITIL.js',
         // './test/specs/fields_exist_as_enduser_existingForm.js',
         // './test/specs/fields_exist_as_enduser_newForm.js',
         // './test/specs/fields_exist_as_ITIL_existingForm.js',
         // './test/specs/fields_exist_as_ITIL_newForm.js',
-        './test/specs/verifyReadOnly_asEndUser_existingForm.js',
+        // './test/specs/verifyReadOnly_asEndUser_existingForm.js',
         // './test/specs/verifyReadOnly_asEndUser_newForm.js',
         // './test/specs/verifyReadOnly_asITIL_newForm.js',
+        /** UIActions-related test */
+        './test/specs/verifyUIActions_asEndUser_newForm.js',
+        
     ],
     // Patterns to exclude.
     exclude: [
