@@ -10,9 +10,10 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        // './test/specs/fields_exist_as_ITIL_existingForm.js',
-        './test/specs/fields_exist_as_ITIL_newForm.js',
+        './test/specs/fields_exist_as_ITIL_existingForm.js',
+        // './test/specs/fields_exist_as_ITIL_newForm.js',
         // './test/specs/access_fields_as_enduser.js',
+        // './test/specs/access_fields_as_ITIL.js',
     ],
     // Patterns to exclude.
     exclude: [

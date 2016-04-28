@@ -107,6 +107,7 @@ SNInterface.prototype.navToExistingRecordForm = function(url) {
 	browser.waitForEnabled('#gsft_main');
 	browser.frame('gsft_main');
 	// TODO: Should return a new page object
+	return this;
 
 };
 

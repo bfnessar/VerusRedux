@@ -7,8 +7,8 @@ var storage = require('../persistent_values.js');
 var instance_url = storage.instance_url;
 var username = storage.login_creds.username;
 var password = storage.login_creds.password;
-var open_record_url = storage.calledByITIL_open;
-var closed_record_url = storage.calledByITIL_closed;
+var open_record_url = storage.stock_incidents.calledByITIL_open;
+var closed_record_url = storage.stock_incidents.calledByITIL_closed;
 
 describe('just taking the new pages out for a spin', function() {
 	this.timeout(0);
@@ -30,16 +30,20 @@ describe('just taking the new pages out for a spin', function() {
 	it('messes around with fields on the page', function(done){
 		var verify = [ // Line-by line, alphabetically
 			'assigned_to', 'assignment_group',
-			'caller_id', 'category', 'closed_at', 'comments', 'contact_type',
+			'caller_id', 'category', 'caused_by', 'closed_at', 'closed_by_label', 
+			'cmdb_ci', 'comments', 'contact_type',
 			'impact', 'location', 'number',
 			'opened_at', 'opened_by_label',
-			'priority',
+			'priority', 'problem_id', 'rfc',
 			'short_description', 'state', 'subcategory',
 			'urgency', 'work_notes',
-			];
+		];
+		// browser.debug();
 		verify.forEach(function(field) {
 			expect(Fields.exists(field)).to.be.true;
 		});
 	});
+
+	
 
 });
