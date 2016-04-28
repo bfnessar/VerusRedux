@@ -39,6 +39,12 @@ Fields.prototype.exists = function(field_name) {
 	};
 };
 
+Fields.prototype.isReadOnly = function(field_name) {
+	var field_type = this._getFieldType(field_name);
+	var field_specs = this._determineIDandRO(field_name, field_type);
+	return field_specs["isRO"];
+};
+
 Fields.prototype.getValue = function(field_name) {
 	/**	We have to go through some steps to find out the element id, before we can get the element's value.
 		We already know that the element id will contain "<form_type>\\.<field_name>".
