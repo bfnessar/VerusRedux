@@ -10,7 +10,7 @@ var password = storage.login_creds.password;
 var open_record_url = storage.stock_incidents.calledByITIL_open;
 var closed_record_url = storage.stock_incidents.calledByITIL_closed;
 
-describe('just taking the new pages out for a spin', function() {
+describe('Verifies the presence of fields for existing records as an ITIL user', function() {
 	this.timeout(0);
 
 	it('calls the SNInterface page object, then logs in as admin', function(done){
@@ -58,5 +58,4 @@ describe('just taking the new pages out for a spin', function() {
 			expect(Fields.exists(field)).to.be.true;
 		});
 	});
-
 });
