@@ -25,9 +25,6 @@ describe('just taking the new pages out for a spin', function() {
 	it('navigates to an open record, then verifies the existence of its fields', function(done){
 		SNWindow.navToExistingRecordForm(open_record_url);
 		Fields.setFormType('incident');
-	});
-
-	it('messes around with fields on the page', function(done){
 		var verify = [ // Line-by line, alphabetically
 			'assigned_to', 'assignment_group',
 			'caller_id', 'category', 'caused_by', 'closed_at', 'closed_by_label', 
@@ -44,6 +41,22 @@ describe('just taking the new pages out for a spin', function() {
 		});
 	});
 
-	
+	it('navigates to a closed record, then verifies the existence of its fields', function(done){
+		SNWindow.navToExistingRecordForm(closed_record_url);
+		var verify = [ // Line-by line, alphabetically
+			'assigned_to', 'assignment_group',
+			'caller_id', 'category', 'caused_by', 'close_code', 'close_notes',
+			'closed_at', 'closed_by_label', 
+			'cmdb_ci', 'contact_type',
+			'impact', 'location', 'number',
+			'opened_at', 'opened_by_label',
+			'priority', 'problem_id', 'rfc',
+			'short_description', 'state', 'subcategory',
+			'urgency',
+		];
+		verify.forEach(function(field) {
+			expect(Fields.exists(field)).to.be.true;
+		});
+	});
 
 });
