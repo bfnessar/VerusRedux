@@ -122,8 +122,19 @@ Fields.prototype._determineIDandRO = function(field_name, field_type) {
 		}
 
 		case 'pick_list': {
-			/**	Pretty much only applies to Short Description, and is (probably) never read-only	*/
-			return {fieldID: base_name, isRO: false,};
+			/**	Pretty much only applies to Short Description. Is usually not readonly	*/
+			var name_with_readonly = base_name.replace(/#/, "#sys_readonly\\.");
+			var elem_has_readonly_attribute = String(browser.getAttribute(base_name, "readonly")).match(/^(true|readonly)$/);
+			var elem_has_formcontrol_disabled = browser.getAttribute(base_name, "class") == "form-control disabled";
+			if (browser.isExisting(name_with_readonly)) {
+				return {fieldID: name_with_readonly, isRO: true};
+			}
+			else if (elem_has_readonly_attribute || elem_has_formcontrol_disabled) {
+				return {fieldID: base_name, isRO: true};
+			}
+			else {
+				return {fieldID: base_name, isRO: false};
+			};
 		}
 
 		case 'journal_input': {

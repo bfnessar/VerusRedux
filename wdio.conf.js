@@ -16,8 +16,9 @@ exports.config = {
         // './test/specs/fields_exist_as_enduser_newForm.js',
         // './test/specs/fields_exist_as_ITIL_existingForm.js',
         // './test/specs/fields_exist_as_ITIL_newForm.js',
+        './test/specs/verifyReadOnly_asEndUser_existingForm.js',
         // './test/specs/verifyReadOnly_asEndUser_newForm.js',
-        './test/specs/verifyReadOnly_asITIL_newForm.js',
+        // './test/specs/verifyReadOnly_asITIL_newForm.js',
     ],
     // Patterns to exclude.
     exclude: [
