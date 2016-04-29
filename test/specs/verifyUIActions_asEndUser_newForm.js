@@ -21,7 +21,7 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 	it('navigates to a new record form (incident.do), then verifies that the UI Actions are present', function(done){
 		SNWindow.navToNewRecordForm('incident');
 		UIActions.setFormType('incident');
-		var verify = [
+		var verify_buttons = [
 			['#sysverb_insert', 'form button'],
 			['submit', 'button'],
 			['#submit', 'form:button'],
@@ -29,7 +29,7 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 			['#resolve_incident', 'form:button'],
 			['resolve_incident', 'formButton'],
 		];
-		verify.forEach(function(target) {
+		verify_buttons.forEach(function(target) {
 			expect(UIActions.exists(target[0], target[1])).to.be.true;
 		});
 

@@ -17,6 +17,8 @@ UIActions.prototype.setFormType = function(form_type) {
 */
 UIActions.prototype.exists = function(action_name, location) {
 	/**	Should handle Button, ContextMenu, and Link*/
+
+	// The user wants a BUTTON
 	if (location.match(/^(form[\s\S]?)?(button)$/i)) {
 		// Despite being labelled 'Submit', the button's actual ID is '#sysverb_insert'. Let's just account for that here.
 		if (action_name.match(/^[#]?submit$/i)) {
@@ -29,13 +31,46 @@ UIActions.prototype.exists = function(action_name, location) {
 		};
 		return browser.isExisting(action_name);
 	}
+
+	// The user wants a CONTEXT MENU ITEM
 	else if (location.match(/^(form[\s\S]?)?(context[\s\S]?menu)$/i)) {
-		;
+		browser.debug();
+
+		// Right-click the dotdotdot button in the header
+		if (!browser.isExisting('#context_1')) {
+			browser.rightClick('#toggleMoreOptions');
+		};
+
+		// There are two formats that the elementIDs take in the context menu
+		for (var i=0; i<25; i++) {
+			// We'll check both formats to see if the desired element exists.
+			var elemID_1 = "#context_1 > div:nth-child(*)".replace("*", i);
+			if (browser.isExisting(elemID_1)) {
+				if (browser.getText(elemID_1).toLowerCase() == action_name.toLowerCase()){
+					return true;
+				};
+			}
+			var elemID_2 = "div.context_item:nth-child(*)".replace('*', i);
+			if (browser.isExisting(elemID_2)) {
+				if (browser.getText(elemID_2).toLowerCase() == action_name.toLowerCase()) {
+					return true;
+				};
+			}
+		};
+		// At this point, we haven't found the element and we give up.
+		return false;
 	}
+
+	// The user wants a LINK
 	else if (location.match(/^(form[\s\S]?)?(link)$/)) {
 		;
 	}
-	else {return false;};
+	
+	// Unrecognized UIAction type
+	else {
+		console.log(location + " is not a UIAction type that I recognize");
+		return false;
+	};
 };
 
 UIActions.prototype._getElemID = function(button_name) {

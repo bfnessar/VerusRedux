@@ -5,6 +5,9 @@ var storage = require('../persistent_values.js');
 var instance_url = storage.instance_url;
 var username = storage.login_creds.username;
 var password = storage.login_creds.password;
+var open_incident_url = storage.stock_incidents.calledByITIL_open;
+var closed_incident_url = storage.stock_incidents.calledByITIL_closed;
+
 
 describe('Verifies the presence of fields on a new Incident form for an end user', function() {
 	this.timeout(0);
@@ -18,20 +21,21 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 		SNWindow.impersonate('ITIL User');
 	});
 
-	it('navigates to a new record form (incident.do), then verifies the existence of its fields', function(done){
-		SNWindow.navToNewRecordForm('incident');
+	it('navigates to an existing, open record form, then verifies that the UI actions are present', function(done){
+		SNWindow.navToExistingRecordForm(open_incident_url);
 		UIActions.setFormType('incident');
-		var verify_buttons = [
-			['#sysverb_insert', 'form button'],
-			['submit', 'button'],
-			['#submit', 'form:button'],
 
-			['#resolve_incident', 'form:button'],
-			['resolve_incident', 'formButton'],
-		];
-		verify_buttons.forEach(function(target) {
-			expect(UIActions.exists(target[0], target[1])).to.be.true;
-		});
+		UIActions.exists("lodge", "context menu");
+		UIActions.exists("Print Preview", "context menu");
+		UIActions.exists("Save", "context menu");
+		UIActions.exists("Copy URL", "context menu");
+		// First round: Check the buttons
+		// var verify_buttons = [
+		// ];
 
 	});
+
 });
+
+
+
