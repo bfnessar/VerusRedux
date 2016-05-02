@@ -24,30 +24,13 @@ describe('Verifies the presence of fields on a new Incident form for an end user
 	it('navigates to an existing, open record form, then verifies that the UI actions are present', function(done){
 		SNWindow.navToExistingRecordForm(open_incident_url);
 		UIActions.setFormType('incident');
-		// First round: Check the buttons
-		var verify_buttons = [
-			['#sysverb_update', 'form button'],
-			['#connectFollow', 'button'],
-			['connectFollow', 'BUTTON'],
-			
-			['#resolve_incident', 'form:button'],
-			['resolve_incident', 'formButton'],
-		];
-		verify_buttons.forEach(function(target) {
-			expect(UIActions.exists(target[0], target[1])).to.be.true;
-		});
-	});
 
-	it('navigates to an existing, closed record form, then verifies that the UI actions are present', function(done){
-		SNWindow.navToExistingRecordForm(closed_incident_url);
-		UIActions.setFormType('incident');
-		var verify_buttons = [
-			['#connectFollow', 'button'],
-		];
-		verify_buttons.forEach(function(target) {
-			expect(UIActions.exists(target[0], target[1])).to.be.true;
-		});
+		var container = UIActions.exists("Print Preview", "form link");
+
 
 	});
 
 });
+
+
+

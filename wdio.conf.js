@@ -23,9 +23,10 @@ exports.config = {
         /** UIActions-related test */
         // './test/specs/verifyUIActions_asEndUser_existingForm.js',
         // './test/specs/verifyUIActions_asEndUser_newForm.js',
-        // './test/specs/verifyUIActions_asITIL_existingForm.js',
+        './test/specs/verifyUIActions_asITIL_openRecord.js',
         // './test/specs/verifyUIActions_asITIL_newForm.js',
-        './test/specs/contextMenuTesting.js',
+        // './test/specs/contextMenuTesting.js',
+        // './test/specs/relatedLinksTesting.js',
 
     ],
     // Patterns to exclude.
