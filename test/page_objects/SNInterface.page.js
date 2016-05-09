@@ -51,12 +51,12 @@ SNInterface.prototype.impersonate = function(username) {
 		this.impersonate_user_button.click();
 		this.impersonate_user_search_bar.waitForExist(5000);
 		this.impersonate_user_search_bar.click();
-		this.impersonate_user_text_field.setValue(username);
-		browser.pause(5000);
-		browser.keys(['Enter']);
-		browser.pause(3000);
+		this.impersonate_user_text_field.setValue(username); // Type the username into the field
+		browser.pause(5000); // Wait for the autofill to match the username to an actual user
+		browser.keys(['Enter']); // Select the highlighted user (there should be exactly one match)
+		browser.pause(3000); // Wait for the page to reload
 		browser.frameParent();
-		current_user = browser.getText('.user-name');
+		current_user = browser.getText('.user-name'); // Verify that the current impersonation matches the expected one
 		timeout_counter += 1;
 		if (timeout_counter > 3) {
 			console.log("We can't seem to impersonate " + username+ ". I guess we just give up here.");

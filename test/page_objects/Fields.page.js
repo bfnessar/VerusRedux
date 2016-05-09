@@ -217,7 +217,7 @@ Fields.prototype.setValue = function(value, field_name) {
 		console.log("Field " + field_name + " is read-only, so no.");
 		return false;
 	}
-	// If fieldID is truthy and the field is writable, we're good to go
+	// If fieldID is truthy and the field is writable, we're good to g
 	else if (field_specs["fieldID"] && (field_specs["isRO"] == false) ) {
 		browser.setValue(field_specs["fieldID"], value);
 	};
