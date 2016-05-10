@@ -23,10 +23,13 @@ exports.config = {
         /** UIActions-related test */
         // './test/specs/verifyUIActions_asEndUser_existingForm.js',
         // './test/specs/verifyUIActions_asEndUser_newForm.js',
-        './test/specs/verifyUIActions_asITIL_openRecord.js',
+        // './test/specs/verifyUIActions_asITIL_openRecord.js',
         // './test/specs/verifyUIActions_asITIL_newForm.js',
         // './test/specs/contextMenuTesting.js',
         // './test/specs/relatedLinksTesting.js',
+
+        // './test/specs/full_regression_testing.js',
+        './test/specs/revision_testing.js',
 
     ],
     // Patterns to exclude.
@@ -147,35 +150,25 @@ exports.config = {
 
         // Define utility functions
         browser.addCommand("login", function(username, password){
-            /* Here are three blocks of code that ostensibly do the same thing, except they don't. */
-            /*  1) I WANT this code to work, where I call pageObj's methods,
-                but I can't interact with the elements that are returned by the pageObject's getters. */
-            // pageObj.setInstanceUrl(instanceUrl).open();
-            // pageObj.username_field.setValue(username);
-            // pageObj.password_field.setValue(password);
-            // pageObj.login_button.click();
-
-            /*  2) THIS code works, but it disobeys the principle that the element-names
-                should be enpacsulated within the page object. That is, we refer to '#user_name', etc.
-                explicitly in this wdio.config file. The benefit of NOT doing this (and, instead, using the
-                getter functions that I made) is that IF the DOM of the ServiceNow login page should ever change,
-                we would only need to change the name of the element ONCE, within sn_interface.page.js. Instead,
-                if it changes, we have to change the name of the element in BOTH the aforementioned page object file,
-                and also here, because we have hardcoded the element's name.    */
+            /** This function disobeys the principle that the element selectors should be isolated to the page object. 
+                That is, we refer to '#user_name', etc. explicitly in this wdio.config file.    */
             browser.setValue('#user_name', username);
             browser.setValue('#user_password', password);
             browser.click('#sysverb_login');
-
-            /*  3) OR we can define a function, called: pageObj.login_as(username, password),
-                that gets called by this addCommand. It seems like it should work,
-                but it doesn't, and also it feels silly to nest these login functions. I defined that function anyway,
-                and it's located in sn_interface.page.js. I don't think we're going to use it, though,
-                because it fails in the same way that Option 1 fails.
-            */
-            // pageObj.loginAs(username, password);
         });
 
+        // Variables for logging in
+        var storage = require('./test/persistent_values.js');
+        var instance_url = storage.instance_url;
+        var username = storage.login_creds.username;
+        var password = storage.login_creds.password;
+
+        // Open the browser to your SN instance, then login.
+        browser.url(instance_url);
+        browser.frame('gsft_main');
+        browser.login(username, password);
     },
+
     //
     // Hook that gets executed before the suite starts
     // beforeSuite: function (suite) {

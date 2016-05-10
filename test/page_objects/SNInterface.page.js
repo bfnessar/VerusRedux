@@ -38,32 +38,17 @@ SNInterface.prototype.login = function(username, password) {
 	return this;
 };
 
-/**	PROBLEM: Sometimes logs in as 'Abel Tuter'. Current workaround (which works)
-	is to retry impersonation until the impersonation is correct.
-	If the impersonation would take more than three tries, we just return false instead.
-  */
 SNInterface.prototype.impersonate = function(username) {
+	browser.waitForExist('#gsft_main');
+	browser.url(this.instance_url + "/impersonate_dialog.do");
 	browser.frameParent();
-	var current_user = browser.getText('.user-name');
-	var timeout_counter = 0;
-	while (username.toLowerCase() != current_user.toLowerCase()) {
-		this.dropdown_menu.click();
-		this.impersonate_user_button.click();
-		this.impersonate_user_search_bar.waitForExist(5000);
-		this.impersonate_user_search_bar.click();
-		this.impersonate_user_text_field.setValue(username); // Type the username into the field
-		browser.pause(5000); // Wait for the autofill to match the username to an actual user
-		browser.keys(['Enter']); // Select the highlighted user (there should be exactly one match)
-		browser.pause(3000); // Wait for the page to reload
-		browser.frameParent();
-		current_user = browser.getText('.user-name'); // Verify that the current impersonation matches the expected one
-		timeout_counter += 1;
-		if (timeout_counter > 3) {
-			console.log("We can't seem to impersonate " + username+ ". I guess we just give up here.");
-			return false;
-		};
-	};
-	// Should either be impersonating correctly, or have bailed out.
+	browser.setValue("input[id*='sys_display']", username);
+	browser.keys(['Enter']);
+	browser.keys(['Enter']);
+	browser.keys(['Enter']);
+	browser.waitForExist("input[title='Invalid reference']", 5000, true);
+	browser.click('#ok_button');
+	// browser.pause(5000);
 	return this;
 };
 
