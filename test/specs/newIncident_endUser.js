@@ -15,7 +15,7 @@ describe('prepares to test elements', function() {
 		SNWindow.impersonate("Joe Employee");
 		SNWindow.navToNewRecordForm('incident');
 		// The Fields object needs to know what the table name is
-		Fields.setFormType('incident');
+		Fields.setTable('incident');
 	});
 });
 

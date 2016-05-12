@@ -1,11 +1,11 @@
 function UIActions() {
-	this.form_type;
+	this.table;
 };
 
 UIActions.prototype = {	};
 
-UIActions.prototype.setFormType = function(form_type) {
-	this.form_type = form_type;
+UIActions.prototype.setTable = function(table) {
+	this.table = table;
 };
 
 /**	TODO: Divide this function into smaller ones  */

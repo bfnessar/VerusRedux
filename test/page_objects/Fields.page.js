@@ -3,15 +3,15 @@
 	form type.
 */
 function Fields() {
-	this.form_type; // So we know what type of form we are working on
+	this.table; // So we know what type of form we are working on
 };
 
 Fields.prototype = {
 	// This is where the more basic getter functions would go, if we decide to use any.
 };
 
-Fields.prototype.setFormType = function(form_type) {
-	this.form_type = form_type;
+Fields.prototype.setTable = function(table) {
+	this.table = table;
 };
 
 /**	===================================================================================
@@ -21,13 +21,13 @@ Fields.prototype.setFormType = function(form_type) {
 // Verified for: EU/NewIncident, 
 Fields.prototype.exists = function(field_name) {
 	/**	Sometimes field_name ends with '_label', but the selector,
-		#element.{form_type}.{field_name}, does NOT end in '_label'.
+		#element.{table}.{field_name}, does NOT end in '_label'.
 		Let's account for that here.
 	*/
 	if (field_name.endsWith('_label')) {
 		field_name = field_name.replace('_label', '');
 	};
-	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
+	var selector = '#element\\.' + this.table + '\\.' + field_name;
 	if (browser.isExisting(selector)){
 		return true;
 	}
@@ -41,7 +41,7 @@ Fields.prototype.isVisible = function(field_name) {
 	if (field_name.endsWith('_label')) {
 		field_name = field_name.replace('_label', '');
 	};
-	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
+	var selector = '#element\\.' + this.table + '\\.' + field_name;
 	var visible = browser.getAttribute(selector, "style");
 	if (visible == "") {
 		return true;
@@ -56,7 +56,7 @@ Fields.prototype.isMandatory = function(field_name) {
 	if (field_name.endsWith('_label')) {
 		field_name = field_name.replace('_label', '');
 	};
-	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
+	var selector = '#element\\.' + this.table + '\\.' + field_name;
 	var mandatory = browser.getAttribute(selector, 'class');
 	return (mandatory.includes('is-filled') || mandatory.includes('is-required'));
 };
@@ -66,8 +66,8 @@ Fields.prototype.isReadOnly = function(field_name) {
 	if (field_name.endsWith('_label')) {
 		field_name = field_name.replace('_label', '');
 	};
-	var selector = '#' + this.form_type + '\\.' + field_name;
-	var ro_selector = '#sys_readonly\\.' + this.form_type + '\\.' + field_name;
+	var selector = '#' + this.table + '\\.' + field_name;
+	var ro_selector = '#sys_readonly\\.' + this.table + '\\.' + field_name;
 	if (browser.isExisting(ro_selector))
 		return true;
 	if (String(browser.getAttribute(selector, "readonly")).match(/^(true|readonly)$/))
@@ -85,9 +85,9 @@ Fields.prototype.getValue = function(field_name) {
 		field_name = field_name.replace('_label', '');
 	};
 	// These are the different forms that a selector can take
-	var base_selector = "#" + this.form_type + "\\." + field_name;
-	var selector_with_RO = '#sys_readonly\\.' + this.form_type + '\\.' + field_name;
-	var selector_with_sysdisplay = '#sys_display\\.' + this.form_type + '\\.' + field_name;
+	var base_selector = "#" + this.table + "\\." + field_name;
+	var selector_with_RO = '#sys_readonly\\.' + this.table + '\\.' + field_name;
+	var selector_with_sysdisplay = '#sys_display\\.' + this.table + '\\.' + field_name;
 
 	// Check for various selectors and return one that matches
 	if (browser.isExisting(base_selector)) {
@@ -110,9 +110,9 @@ Fields.prototype.setValue = function(field_name, value) {
 		field_name = field_name.replace('_label', '');
 	};
 	// A selector can take one of these forms:
-	var base_selector = "#" + this.form_type + "\\." + field_name;
-	var selector_with_sysdisplay = "#sys_display\\." + this.form_type + "\\." + field_name;
-	var selector_with_RO = '#sys_readonly\\.' + this.form_type + '\\.' + field_name;
+	var base_selector = "#" + this.table + "\\." + field_name;
+	var selector_with_sysdisplay = "#sys_display\\." + this.table + "\\." + field_name;
+	var selector_with_RO = '#sys_readonly\\.' + this.table + '\\.' + field_name;
 
 	// Check the various selectors ands see if one matches. If so, write to it.
 	if (browser.isExisting(base_selector)) {
