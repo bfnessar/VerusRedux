@@ -19,7 +19,14 @@ Fields.prototype.setFormType = function(form_type) {
 */
 
 // Verified for: EU/NewIncident, 
-Fields.prototype.existsRedux = function(field_name) {
+Fields.prototype.exists = function(field_name) {
+	/**	Sometimes field_name ends with '_label', but the selector,
+		#element.{form_type}.{field_name}, does NOT end in '_label'.
+		Let's account for that here.
+	*/
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
 	if (browser.isExisting(selector)){
 		return true;
@@ -31,6 +38,9 @@ Fields.prototype.existsRedux = function(field_name) {
 
 // Verified for: EU/NewIncident,
 Fields.prototype.isVisible = function(field_name) {
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
 	var visible = browser.getAttribute(selector, "style");
 	if (visible == "") {
@@ -43,13 +53,19 @@ Fields.prototype.isVisible = function(field_name) {
 
 // Verified for: 
 Fields.prototype.isMandatory = function(field_name) {
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	var selector = '#element\\.' + this.form_type + '\\.' + field_name;
 	var mandatory = browser.getAttribute(selector, 'class');
 	return (mandatory.includes('is-filled') || mandatory.includes('is-required'));
 };
 
 // Verified for: EU/NewIncident, 
-Fields.prototype.isReadOnlyRedux = function(field_name) {
+Fields.prototype.isReadOnly = function(field_name) {
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	var selector = '#' + this.form_type + '\\.' + field_name;
 	var ro_selector = '#sys_readonly\\.' + this.form_type + '\\.' + field_name;
 	if (browser.isExisting(ro_selector))
@@ -64,7 +80,10 @@ Fields.prototype.isReadOnlyRedux = function(field_name) {
 };
 
 // Verified for: EU/NewIncident, 
-Fields.prototype.getValueRedux = function(field_name) {
+Fields.prototype.getValue = function(field_name) {
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	// These are the different forms that a selector can take
 	var base_selector = "#" + this.form_type + "\\." + field_name;
 	var selector_with_RO = '#sys_readonly\\.' + this.form_type + '\\.' + field_name;
@@ -86,7 +105,10 @@ Fields.prototype.getValueRedux = function(field_name) {
 
 };
 
-Fields.prototype.setValueRedux = function(field_name, value) {
+Fields.prototype.setValue = function(field_name, value) {
+	if (field_name.endsWith('_label')) {
+		field_name = field_name.replace('_label', '');
+	};
 	// A selector can take one of these forms:
 	var base_selector = "#" + this.form_type + "\\." + field_name;
 	var selector_with_sysdisplay = "#sys_display\\." + this.form_type + "\\." + field_name;

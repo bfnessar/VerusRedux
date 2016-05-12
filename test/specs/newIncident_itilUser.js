@@ -3,23 +3,22 @@ var Fields = require('../page_objects/Fields.page.js');
 var UIActions = require('../page_objects/UIActions.page.js');
 var storage = require('../persistent_values.js');
 
-var fields = storage.incident.fields.endUser;
-var uiActions = storage.incident.uiActions.endUser;
-
+var fields = storage.incident.fields.itilUser;
+var uiActions = storage.incident.uiActions.itilUser;
 
 describe('prepares to test elements', function() {
 	this.timeout(0);
 	it('impersonates the desired user, then navigates to a new incident form', function(){
 		// SNWindow needs to know the url
 		SNWindow.instance_url = storage.instance_url;
-		SNWindow.impersonate("Joe Employee");
+		SNWindow.impersonate("ITIL User");
 		SNWindow.navToNewRecordForm('incident');
 		// The Fields object needs to know what the table name is
 		Fields.setFormType('incident');
 	});
 });
 
-describe('Verifies fields on a new incident form from the perspective of an end user', function(){
+describe('Verifies fields on a new incident form from the perspective of an ITIL user', function(){
 	fields.forEach(function(field){
 		it ('verifies that ' + field + ' exists', function(){
 			expect(Fields.exists(field)).to.be.true;
@@ -31,7 +30,7 @@ describe('Verifies fields on a new incident form from the perspective of an end 
 	});
 });
 
-describe('verifies UIActions on the new incident form from the perspective of an end user', function(){
+describe('verifies UIActions on the new incident form from the perspective of an ITIL user', function(){
 	uiActions.forEach(function(action){
 		it('verifies that ' + action.label + ' exists as a ' + action.click + ' item', function(){
 			expect(UIActions.exists(action.label, action.click)).to.be.true;
