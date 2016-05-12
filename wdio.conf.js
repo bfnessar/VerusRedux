@@ -13,8 +13,9 @@ exports.config = {
         // './test/specs/revision_testing.js',
 
         /** Incident tests*/
-        './test/specs/newIncident_endUser.js',
-        './test/specs/newIncident_itilUser.js',
+        // './test/specs/newIncident_endUser.js',
+        // './test/specs/newIncident_itilUser.js',
+        './test/specs/openIncident_endUser.js',
 
     ],
     // Patterns to exclude.
