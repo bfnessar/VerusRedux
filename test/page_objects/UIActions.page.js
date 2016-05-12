@@ -47,7 +47,10 @@ UIActions.prototype._buttonExists = function(action_name) {
 	if (action_name.match(/^[#]?submit$/i)) {
 		action_name = "#sysverb_insert";
 	}
-	else { // If the name doesn't start with a hashtag, prepend one
+	else { 
+		// A selector won't have spaces in its name, even if the label does. Let's replace all whitespace tokens with underscores.
+		action_name = action_name.replace(/\s/, '_');
+		// If the name doesn't start with a hashtag, prepend one
 		if (!action_name.startsWith("#")) {
 			action_name = "#" + action_name;
 		};

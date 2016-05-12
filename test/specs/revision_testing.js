@@ -8,7 +8,7 @@ var storage = require('../persistent_values.js');
 
 /**	TO IMPLEMENT:
 		X Put impersonate() into the before hook (probably would rather not do this)
-		* Change Fields functions to Abey's implementations
+		X Change Fields functions to Abey's implementations
 			* exists(), isVisible(), isReadOnly(), _determineIDandRO()
 			* Name of form_type becomes 'table'
 
@@ -29,7 +29,7 @@ describe('Testing function revisions proposed on 9 May 2016', function() {
 
 	it('impersonates the desired user, then navigates to a new incident form', function(done){
 		SNWindow.instance_url = storage.instance_url;
-		SNWindow.impersonate("Joe Employee");
+		SNWindow.revisedImpersonate("Joe Employee");
 		SNWindow.navToNewRecordForm('incident');
 		Fields.setFormType('incident');
 	});

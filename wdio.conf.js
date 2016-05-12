@@ -29,7 +29,8 @@ exports.config = {
         // './test/specs/relatedLinksTesting.js',
 
         // './test/specs/full_regression_testing.js',
-        './test/specs/revision_testing.js',
+        // './test/specs/revision_testing.js',
+        './test/specs/newIncident_endUser.js',
 
     ],
     // Patterns to exclude.
@@ -118,8 +119,10 @@ exports.config = {
     // Test reporter for stdout.
     // The following are supported: dot (default), spec, and xunit
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    // reporters: ['dot'],
-    //
+    reporters: ['dot', 'junit'],
+    reporterOptions: {
+        outputDir: './'
+      },    //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     //      https://mochajs.org/#usage
@@ -162,7 +165,6 @@ exports.config = {
         var instance_url = storage.instance_url;
         var username = storage.login_creds.username;
         var password = storage.login_creds.password;
-
         // Open the browser to your SN instance, then login.
         browser.url(instance_url);
         browser.frame('gsft_main');
